@@ -2,6 +2,14 @@
 Thumbs.db
 ehthumbs.db
 
+.metadata
+.recommenders
+*.prefs
+*.class
+*.classpath
+*.project
+doc
+
 # Folder config file
 Desktop.ini
 
