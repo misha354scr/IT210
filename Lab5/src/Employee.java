@@ -71,3 +71,6 @@ public class Employee {
 		return firstName + " " + lastName + " " +  NumberFormat.getCurrencyInstance().format(salary);
 	}	
 }
+
+//Enter a number: 50739
+//Digits in 50739 5 0 7 3 9

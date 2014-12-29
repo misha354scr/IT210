@@ -57,3 +57,6 @@ public class Digits {
 		System.out.format("Digits in %d %d %d %d %d %d", number, digit1, digit2, digit3, digit4, digit5);
 	}
 } // end main
+
+//Enter a number: 50739
+//Digits in 50739 5 0 7 3 9
