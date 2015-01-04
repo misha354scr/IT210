@@ -3,12 +3,60 @@ import java.util.Random;
 
 public class Game {
 
-	public void play(){
-		GameEnums.Rolls roll = RollDice();
-		
+	public enum GameStatus{
+		COME_OUT(), POINT();						
+	}
+
+	
+	public void playerWin(){
+		System.out.println("You win!");
 	}
 	
-	GameEnums.Rolls RollDice(){
+	public void playerLose(){
+		System.out.println("You lose!");
+	}
+	
+	private GameEnums.Rolls NaturalOrSevenOut(GameEnums.GameStatus gameStatus){
+		if (gameStatus == GameEnums.GameStatus.COME_OUT)
+			return GameEnums.Rolls.NATURAL;
+		else
+			return GameEnums.Rolls.SEVEN_OUT;
+	}
+	
+	public void play(){
+		
+		
+		//come out roll
+		System.out.println("Come Out");
+		GameEnums.Rolls roll = RollDice();
+				
+		if (roll == GameEnums.Rolls.SEVEN_OUT || 
+			roll == GameEnums.Rolls.YO_LEVEN){
+			System.out.println("Natural!");
+			playerWin();
+		}
+		
+		if (roll == GameEnums.Rolls.SNAKE_EYES ||
+			roll == GameEnums.Rolls.ACE_DEUCE ||
+			roll == GameEnums.Rolls.BOXCARS){
+				System.out.println("Craps!");
+				playerLose();
+		}
+
+		//point phase
+		System.out.println("Point is " + roll.getValue());
+		GameEnums.Rolls point = roll;
+		
+		while (true){
+			roll = RollDice();
+			
+			if (roll == GameEnums.Rolls.SEVEN_OUT){
+				
+			}
+		}
+	}
+		
+	GameEnums.Rolls RollDice(GameEnums.GameStatus gameStatus){
 		Random randomGenerator = new Random();
 		int number1, number2;
 	
@@ -47,7 +95,7 @@ public class Game {
 					result = GameEnums.Rolls.EASY_SIX;
 					break;
 				case 6:
-					result = GameEnums.Rolls.SEVEN_OUT;
+					result = NaturalOrSevenOut(gameStatus);
 					break;
 				}
 			}
@@ -64,7 +112,7 @@ public class Game {
 					result = GameEnums.Rolls.EASY_SIX;
 					break;
 				case 5:
-					result = GameEnums.Rolls.SEVEN_OUT;
+					result = NaturalOrSevenOut(gameStatus);
 					break;
 				case 6:
 					result = GameEnums.Rolls.EASY_EIGHT;
@@ -78,7 +126,7 @@ public class Game {
 					result = GameEnums.Rolls.HARD_SIX;
 					break;
 				case 4:
-					result  = GameEnums.Rolls.SEVEN_OUT;
+					result = NaturalOrSevenOut(gameStatus);
 					break;
 				case 5:
 					result = GameEnums.Rolls.EASY_EIGHT;
@@ -109,12 +157,19 @@ public class Game {
 					result = GameEnums.Rolls.HARD_TEN;
 					break;
 				case 6:
-					result = 
-				}
+					result = GameEnums.Rolls.YO_LEVEN;
+					break;
 			}
+		}
 		
-	
-			return number1 + number2;
+		//both dices are sixes
+		else{
+			result = GameEnums.Rolls.BOXCARS;
+			break;
+		}
+		
+		System.out.println(result.name());
+		return result;
 		}
 	}
 
