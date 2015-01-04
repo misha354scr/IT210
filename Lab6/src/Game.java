@@ -16,12 +16,6 @@ public class Game {
 		System.out.println("You lose!");
 	}
 	
-	private GameEnums.Rolls NaturalOrSevenOut(GameEnums.GameStatus gameStatus){
-		if (gameStatus == GameEnums.GameStatus.COME_OUT)
-			return GameEnums.Rolls.NATURAL;
-		else
-			return GameEnums.Rolls.SEVEN_OUT;
-	}
 	
 	public void play(){
 		
@@ -73,100 +67,6 @@ public class Game {
 		System.out.println("You rolled a " + number1 + " and a " + number2 +
 					 			" for a total of " + (number1 + number2));
 					
-		//Decide the name of the roll
-		GameEnums.Rolls result;
-	
-		if (lowerDie == 1){
-							
-			switch (higherDie){
-				case 1:
-					result = GameEnums.Rolls.SNAKE_EYES;
-					break;
-				case 2:
-					result = GameEnums.Rolls.ACE_DEUCE;
-					break;
-				case 3:
-					result = GameEnums.Rolls.EASY_FOUR;
-					break;
-				case 4:
-					result = GameEnums.Rolls.FIVE;
-					break;
-				case 5:
-					result = GameEnums.Rolls.EASY_SIX;
-					break;
-				case 6:
-					result = NaturalOrSevenOut(gameStatus);
-					break;
-				}
-			}
-	
-		else if (lowerDie == 2){
-			switch(higherDie){
-				case 2:
-					result = GameEnums.Rolls.HARD_FOUR;
-					break;
-				case 3:
-					result = GameEnums.Rolls.FIVE;
-					break;
-				case 4:
-					result = GameEnums.Rolls.EASY_SIX;
-					break;
-				case 5:
-					result = NaturalOrSevenOut(gameStatus);
-					break;
-				case 6:
-					result = GameEnums.Rolls.EASY_EIGHT;
-					break;
-			}
-		}
-			
-		else if (lowerDie == 3){
-			switch (higherDie){
-				case 3:
-					result = GameEnums.Rolls.HARD_SIX;
-					break;
-				case 4:
-					result = NaturalOrSevenOut(gameStatus);
-					break;
-				case 5:
-					result = GameEnums.Rolls.EASY_EIGHT;
-					break;
-				case 6:
-					result = GameEnums.Rolls.NINE;
-					break;
-			}
-		}
-				
-		else if (lowerDie == 4){
-			switch (higherDie){
-				case 4:
-					result = GameEnums.Rolls.HARD_EIGHT;
-					break;
-				case 5:
-					result = GameEnums.Rolls.NINE;
-					break;
-				case 6:
-					result = GameEnums.Rolls.EASY_TEN;
-					break;
-			}
-		}
-			
-		else if (lowerDie == 5){
-			switch(higherDie){
-				case 5:
-					result = GameEnums.Rolls.HARD_TEN;
-					break;
-				case 6:
-					result = GameEnums.Rolls.YO_LEVEN;
-					break;
-			}
-		}
-		
-		//both dices are sixes
-		else{
-			result = GameEnums.Rolls.BOXCARS;
-			break;
-		}
 		
 		System.out.println(result.name());
 		return result;
