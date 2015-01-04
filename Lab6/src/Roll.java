@@ -1,43 +1,67 @@
 import java.util.Random;
 
 public class Roll {
-	
+
 	public enum Rolls{
-		SNAKE_EYES(2),	//two ones
-		ACE_DEUCE(3),	// a 1 and a 2
-		EASY_FOUR(4),	// a 1 and a 3
-		HARD_FOUR(4),	//two 2
-		FIVE(5),		//any 5 		
-		EASY_SIX(6), 	//1 and 5 OR 2 and 4
-		HARD_SIX(6),
-		SEVEN_OUT(7), NATURAL(7),
-		EASY_EIGHT(8),
-		HARD_EIGHT(8), NINE(9), EASY_TEN(10), HARD_TEN(10), YO_LEVEN(11),
-		BOXCARS(12);		 
+		SNAKE_EYES("Snake Eyes"),	//two ones
+		ACE_DEUCE("Ace Deuce"),	// a 1 and a 2
+		EASY_FOUR("Easy Four"),	// a 1 and a 3
+		HARD_FOUR("Hard Four"),	//two 2
+		FIVE("Five"),		//any 5 		
+		EASY_SIX("Easy Six"), 	//1 and 5 OR 2 and 4
+		HARD_SIX("Hard Six"), //two 3
+		SEVEN_OUT("Seven Out"), //any 7 rolled in the point phase
+		NATURAL("Natural"), //a 7 or 11 rolled in the come out phase
+		EASY_EIGHT("Easy Eight"), //2 and 6, or 3 and 5
+		HARD_EIGHT("Hard Eight"), //two 4's
+		NINE("Nine"), //3 and 6, or 4 and 5
+		EASY_TEN("Easy Ten"), //4 and 6
+		HARD_TEN("Hard Ten"), //two 5's
+		YO_LEVEN("Yo-Leven"), //5 and 6
+		BOXCARS("Boxcars"); //two 6's
+
+		private String name;
 		
-		private int value;
-		
-		private Rolls(int value){
-			this.value = value;
+		private Rolls(String name){
+			this.name = name;
 		}
-	
-		public int getValue(){
-			return this.value;
-		}		
+				
+		public String toString(){
+			return name;
+		}
 	}
 	
-	Game.GameStatus gameStatus;
+	private int number1, number2;
+	private Game.GameStatus gameStatus;
 	private Rolls result;
 
 	public Rolls getResult(){
 		return result;
 	}
 	
-	public void printResult(){
-		
+	public String toString(){
+		return String.format("You rolled a %d and a %d, for a total of %d. "
+				+ "That's a(n) %s.", number1, number2, number1 + number2, result.toString());		
 	}
 	
-	private Rolls NaturalOrSevenOut(Game.GameStatus gameStatus){
+	private Rolls NaturalOrYoLeven() throws IllegalStateException{
+		
+		if (number1 + number2 != 11)
+			throw new IllegalStateException("Natural 11 declared on roll" +
+		"that's not an 11");
+		
+		if (gameStatus == Game.GameStatus.COME_OUT)
+			return Rolls.NATURAL;
+		else
+			return Rolls.YO_LEVEN;
+	}
+
+	private Rolls NaturalOrSevenOut(){
+
+		if (number1 + number2 != 7)
+			throw new IllegalStateException("Natural 7 declared on roll" +
+		"that's not a 7");
+
 		if (gameStatus == Game.GameStatus.COME_OUT)
 			return Rolls.NATURAL;
 		else
@@ -47,7 +71,6 @@ public class Roll {
 	public Roll(Game.GameStatus gameStatus){
 		this.gameStatus = gameStatus;
 		Random randomGenerator = new Random();
-		int number1, number2;
 	
 		//the values of the two die rolls
 		number1 = randomGenerator.nextInt(5) + 1;
@@ -58,11 +81,7 @@ public class Roll {
 	
 		//holds the lower of the two die values
 		int higherDie = Math.max(number1, number2);
-		
-		System.out.println("You rolled a " + number1 + " and a " + number2 +
-	 			" for a total of " + (number1 + number2));
-
-		
+				
 		//Decide the name of the roll
 	
 		if (lowerDie == 1){
@@ -84,7 +103,7 @@ public class Roll {
 					result = Rolls.EASY_SIX;
 					break;
 				case 6:
-					result = NaturalOrSevenOut(gameStatus);
+					result = NaturalOrSevenOut();
 					break;
 				}
 			}
@@ -101,7 +120,7 @@ public class Roll {
 					result = Rolls.EASY_SIX;
 					break;
 				case 5:
-					result = NaturalOrSevenOut(gameStatus);
+					result = NaturalOrSevenOut();
 					break;
 				case 6:
 					result = Rolls.EASY_EIGHT;
@@ -115,7 +134,7 @@ public class Roll {
 					result = Rolls.HARD_SIX;
 					break;
 				case 4:
-					result = NaturalOrSevenOut(gameStatus);
+					result = NaturalOrSevenOut();
 					break;
 				case 5:
 					result = Rolls.EASY_EIGHT;
@@ -146,7 +165,7 @@ public class Roll {
 					result = Rolls.HARD_TEN;
 					break;
 				case 6:
-					result = Rolls.YO_LEVEN;
+					result = NaturalOrYoLeven();
 					break;
 			}
 		}

@@ -1,7 +1,7 @@
 
 public class GameTester {
 
-	public void main(){
+	public static void main(String [] args){
 		Game craps = new Game();
 		craps.play();
 	}
