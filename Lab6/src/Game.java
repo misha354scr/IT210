@@ -7,18 +7,53 @@ public class Game {
 	private GameStatus gameStatus;
 	
 	public void playerWin(){
-		System.out.println("You win!");
+		System.out.println("\nYou win!");
 	}
 	
 	public void playerLose(){
-		System.out.println("You lose!");
+		System.out.println("\nYou lose!");
 	}
-	
 	
 	public Roll rollDice(){
 		Roll roll = new Roll(gameStatus);
 		System.out.println(roll.toString());
 		return roll;	
+	}
+	
+	private void playComeOut(Roll roll){
+		if (roll.getResult() == Roll.Rolls.NATURAL){
+			playerWin();
+		}
+		
+		else if (roll.getResult() == Roll.Rolls.SNAKE_EYES ||
+			roll.getResult() == Roll.Rolls.ACE_DEUCE ||
+			roll.getResult() == Roll.Rolls.BOXCARS){
+				System.out.println("Craps!");
+				playerLose();
+		}
+		
+		else{
+			gameStatus = GameStatus.POINT;
+		}
+	}
+	
+	private void playPoint(Roll point){
+		System.out.println();
+		System.out.printf("The point is %d\n", point.getValue());
+
+		Roll roll;
+		while (true){
+			roll = rollDice();
+			if (roll.getValue() == point.getValue()){
+				playerWin();
+				break;
+			}
+			
+			if (roll.getResult() == Roll.Rolls.SEVEN_OUT){
+				playerLose();
+				break;
+			}
+		}
 	}
 	
 	public void play(){
@@ -27,39 +62,24 @@ public class Game {
 		
 		//come out roll
 		gameStatus = GameStatus.COME_OUT;
-		System.out.println("Come Out");
+		System.out.println("\nCome Out:");
 
 		try{
 			roll = rollDice();
-		}
 		
-		catch (IllegalStateException e){
-		    System.err.println("IndexOutOfBoundsException: " + e.getMessage());
-		    return;
-		}
+			playComeOut(roll);
 		    
-		if (roll.getResult() == Roll.Rolls.NATURAL){
-			playerWin();
-		}
 		
-		if (roll.getResult() == Roll.Rolls.SNAKE_EYES ||
-			roll.getResult() == Roll.Rolls.ACE_DEUCE ||
-			roll.getResult() == Roll.Rolls.BOXCARS){
-				System.out.println("Craps!");
-				playerLose();
+			//The "point phase"
+			if (gameStatus == GameStatus.POINT){
+				playPoint(roll);
+			}
 		}
-
-//		//point phase
-//		System.out.println("Point is " + roll.getValue());
-//		GameEnums.Rolls point = roll;
-//		
-//		while (true){
-//			roll = RollDice();
-//			
-//			if (roll == GameEnums.Rolls.SEVEN_OUT){
-//				
-//			}
-//		}
+			
+		catch (IllegalStateException e){
+			System.err.println("IndexOutOfBoundsException: " + e.getMessage());
+			return;
+		}
 	}
 }
 

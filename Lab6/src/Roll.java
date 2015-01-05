@@ -39,6 +39,10 @@ public class Roll {
 		return result;
 	}
 	
+	public int getValue(){
+		return number1 + number2;
+	}
+	
 	public String toString(){
 		return String.format("You rolled a %d and a %d, for a total of %d. "
 				+ "That's a(n) %s.", number1, number2, number1 + number2, result.toString());		
