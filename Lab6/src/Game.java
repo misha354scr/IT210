@@ -21,19 +21,18 @@ public class Game {
 	}
 	
 	private void playComeOut(Roll roll){
-		if (roll.getResult() == Roll.Rolls.NATURAL){
-			playerWin();
-		}
-		
-		else if (roll.getResult() == Roll.Rolls.SNAKE_EYES ||
-			roll.getResult() == Roll.Rolls.ACE_DEUCE ||
-			roll.getResult() == Roll.Rolls.BOXCARS){
+		switch (roll.getResult()){
+			case NATURAL:
+				playerWin();
+				break;
+			case SNAKE_EYES:
+			case ACE_DEUCE:
+			case BOXCARS:
 				System.out.println("Craps!");
 				playerLose();
-		}
-		
-		else{
-			gameStatus = GameStatus.POINT;
+				break;
+			default:	
+				gameStatus = GameStatus.POINT;
 		}
 	}
 	
