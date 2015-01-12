@@ -34,6 +34,7 @@ public class Employee {
 	
 	/**
 	 * returns a a string holding the first name.
+	 * @return a string holding the first name
 	 */
 	public String getFirstName(){
 		return firstName;
@@ -49,7 +50,7 @@ public class Employee {
 
 	/**
 	 * Returns the value of the last name.  
-	 * @param firstName new value of the first name
+	 * @return firstName new value of the first name
 	 */
 	public String getLastName(){
 		return this.lastName;

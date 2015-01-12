@@ -1,4 +1,3 @@
-package edu.nhti.craps;
 import java.util.Random;
 
 public class Game
