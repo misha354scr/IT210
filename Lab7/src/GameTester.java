@@ -35,7 +35,7 @@ class GameTester
                if (!g.guessed)
                {
                   while (true){
-                      System.out.printf("Try %d: Enter your guess (I suggest %d): ",
+                      System.out.printf("\nTry %d: Enter your guess (I suggest %d): ",
                     		  g.getNumTries(), g.getSuggestedGuess());
                 	  try{
                 		  usersGuess = input.nextInt();
@@ -49,8 +49,8 @@ class GameTester
                   g.setUsersGuess(usersGuess);
                }
             }
-            System.out.println("Would you like to play again [Y or N]? ");
-            cResponse = input.nextLine().toUpperCase().charAt(0);
+            System.out.print("Would you like to play again [Y or N]? ");
+            cResponse = input.next().toUpperCase().charAt(0);
          }
       }
 }

@@ -1,3 +1,4 @@
+package edu.nhti.craps;
 import java.io.IOException;
 
 
