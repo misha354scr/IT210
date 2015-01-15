@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Digits {
 
 	/**
+	 * the applications main class
 	 * @param args
 	 */
 	public static void main(String[] args) {

@@ -1,7 +1,11 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-
+/**
+ * A test application for the Employee class
+ * @author Mike
+ *
+ */
 public class EmployeeTest {
 
 	public static void main(String [] args){

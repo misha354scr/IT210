@@ -1,13 +1,22 @@
+/**
+ * A test application for the Invoice class
+ * @author Mike
+ *
+ */
+
 public class InvoiceTest {
 	public static void main(String [] args)
 	{
+		//create an invoice
 		Invoice invoice = new Invoice("1234", "Hammer", 2, 14.95);
 	
+		//print it
 		System.out.println("Original Invoice");
 		System.out.println(invoice.toString());
 		
 		System.out.print("\n\n");
 		
+		//update it and print it again
 		System.out.println("Updated invoice information");
 		invoice.setPartNo("001234");
 		invoice.setDescription("Yellow Hammer");
@@ -15,6 +24,7 @@ public class InvoiceTest {
 		invoice.setPricePerItem(19.49);
 		System.out.println(invoice.toString());
 
+		//test handling of bad input
 		System.out.print("\n\n");
 		System.out.println("With negative quantity and negative price");
 		invoice.setQuantity(-3);

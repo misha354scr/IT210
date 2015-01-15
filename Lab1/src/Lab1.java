@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
-
+/**
+ * IT-210 Lab 1
+ * @author Mike
+ * declares and initializes variables of 10
+ * different datatypes and prints them.
+ * Then prompts the user for a value of each
+ * variable and prints it.
+ *
+ */
 public class Lab1 {
 
 	public static void main (String [] args)
