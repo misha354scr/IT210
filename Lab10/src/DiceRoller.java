@@ -3,8 +3,9 @@ import java.util.Random;
 /** 
  * DiceRoller.java
 
- * Defines a class of Invoice objects. An Invoice has 
- * a part number, a description, a quantity, and a price per item. 
+ * An application that simulates the rolling of dice.  
+ * Number of dice, number of sides per die, and number of
+ * rolls are specified as class-wide constants
  */
 
 public class DiceRoller {
@@ -31,13 +32,21 @@ public class DiceRoller {
 		printResults();
 	}
 	
+	/**
+	 * steps through all simulation steps,
+	 * For each steps, adds 1 to the counter array
+	 * element whose index == the roll score
+	 */
 	private static void runSimulation(){
 		for (int i = 1; i <= NUM_ROLLS; i++){
 			count[RollDice()]++;
-		}
-		
+		}		
 	}
 	
+	/**
+	 * generates a dice roll
+	 * @return a number from NUM_DICE to NUM_SIDES * NUM_DICE
+	 */
 	static int RollDice(){
 		int total = 0;
 
@@ -47,9 +56,12 @@ public class DiceRoller {
 		return total;
 	}
 	
+	/**
+	 * prints the results of the simulation
+	 */
 	private static void printResults(){
 		System.out.printf("%3s%12s%12s%n", "Sum", "Frequency", "Percentage");
-		for (int i = 2; i <= NUM_SIDES * 2; i++ ){
+		for (int i = NUM_DICE; i <= NUM_SIDES * 2; i++ ){
 			System.out.printf("%3d%12d%12.2f%n", i, count[i], (double)count[i] / NUM_ROLLS * 100);
 		}
 	
